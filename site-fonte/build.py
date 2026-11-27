@@ -626,6 +626,7 @@ def page(path, title, desc, body, active="", jsonld=None):
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{escape(full_title)}</title>
 <meta name="description" content="{escape(desc)}">
+<meta name="robots" content="noindex, nofollow"><!-- layout em validação: remover esta linha quando o site for ao ar -->
 <meta name="theme-color" content="#4e6353">
 <meta property="og:type" content="website">
 <meta property="og:title" content="{escape(full_title)}">
