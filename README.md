@@ -2,6 +2,8 @@
 
 Layout de site institucional para a Atthis, consultório da Dra. Aclair Dallagranna, Médica de Família e Comunidade em Brasília-DF.
 
+**Ver o site:** https://guleite.github.io/atthis-medicina-site/
+
 - `site/` — site estático pronto (abrir `site/index.html` ou servir com `python -m http.server 5510 -d site`).
 - `site-fonte/build.py` — conteúdo e gerador das páginas (`python site-fonte/build.py`).
 - `site-fonte/vetorizar_logo.py` — gera o logo em SVG a partir da imagem do cliente.

@@ -1,5 +1,9 @@
 # Site Atthis — Dra. Aclair Dallagranna (layout para apresentação)
 
+## Link para a cliente
+https://guleite.github.io/atthis-medicina-site/ (GitHub Pages, atualiza sozinho a cada envio ao repositório `guleite/atthis-medicina-site`).
+As páginas estão marcadas como `noindex` (não aparecem no Google) enquanto o conteúdo está em validação. Quando o site for ao ar de verdade, remover a linha `<meta name="robots" ...>` em `site-fonte/build.py` e regenerar.
+
 ## Como abrir
 - Rápido: abra `site/index.html` no navegador (precisa de internet para fontes e fotos do banco de imagens).
 - Com servidor local (recomendado): na pasta do projeto, rode `python -m http.server 5510 -d site` e acesse http://localhost:5510
