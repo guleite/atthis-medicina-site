@@ -952,3 +952,47 @@ body.booking-open { overflow: hidden; }
   .bsummary div { grid-template-columns: 1fr; gap: 2px; }
   .bstep__q { font-size: 1.85rem; }
 }
+
+/* =========================================================
+   Tela de loading com a logo + transição entre páginas
+   ========================================================= */
+.loader { position: fixed; inset: 0; z-index: 300; visibility: hidden; pointer-events: none; }
+.js-loading .loader, .loader.is-done, .loader.is-leaving { visibility: visible; pointer-events: auto; }
+.loader.is-hidden { visibility: hidden; pointer-events: none; }
+.js-loading body { overflow: hidden; }
+.loader__layer { position: absolute; inset: 0; will-change: transform; }
+.loader__layer--sage { background: var(--sage); }
+.loader__layer--main { background: var(--offwhite); display: grid; place-items: center; }
+.loader__inner { display: grid; justify-items: center; gap: 30px; transition: opacity .5s var(--ease), transform .9s var(--ease-out); }
+.loader__logo {
+  width: min(300px, 66vw); height: auto;
+  clip-path: inset(0 100% 0 0); opacity: 0; filter: blur(8px); transform: translateY(10px);
+  animation: loaderLogo 1.4s var(--ease-out) .1s forwards;
+}
+@keyframes loaderLogo { to { clip-path: inset(0 0 0 0); opacity: 1; filter: blur(0); transform: none; } }
+.loader__bar { position: relative; width: 150px; height: 1px; background: rgba(78, 99, 83, .15); overflow: hidden; }
+.loader__bar i { position: absolute; inset: 0; background: var(--champagne); transform: scaleX(0); transform-origin: left; transition: transform .6s var(--ease-out); }
+
+/* volta ao site na mesma visita: logo já visível (emenda com a cortina da página anterior) */
+.is-return .loader__logo { animation: none; clip-path: none; opacity: 1; filter: none; transform: none; }
+
+/* saída: a página aparece por baixo, em duas camadas */
+.loader.is-done .loader__layer { transition: transform 1.15s cubic-bezier(.76, 0, .24, 1); transform: translateY(-100%); }
+.loader.is-done .loader__layer--sage { transition-delay: .1s; }
+.loader.is-done .loader__inner { opacity: 0; transform: translateY(-46px); }
+
+/* entrada da cortina ao trocar de página */
+.loader.is-leaving .loader__layer { animation: curtainIn .75s cubic-bezier(.76, 0, .24, 1) both; }
+.loader.is-leaving .loader__layer--main { animation-delay: .1s; }
+.loader.is-leaving .loader__logo { animation: none; clip-path: none; filter: none; transform: none; opacity: 0; transition: opacity .35s var(--ease) .55s; }
+.loader.is-leaving.is-covered .loader__logo { opacity: 1; }
+.loader.is-leaving .loader__bar { opacity: 0; }
+@keyframes curtainIn { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+/* animações do topo esperam a tela de loading sair */
+.js-loading .line-reveal > span, .js-loading .fade-up, .js-loading .hero .arch img { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .loader__logo { clip-path: none; filter: none; transform: none; }
+  .loader.is-done .loader__layer { transform: none; opacity: 0; transition: opacity .3s; }
+}

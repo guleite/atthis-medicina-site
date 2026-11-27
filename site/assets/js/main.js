@@ -4,6 +4,62 @@
   const reduce = w.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 
+  /* ================= Tela de loading + transição entre páginas ================= */
+  const html = d.documentElement;
+  const loader = d.querySelector('.loader');
+  if (loader) {
+    const bar = loader.querySelector('.loader__bar i');
+    const isReturn = html.classList.contains('is-return');
+    const minTime = reduce ? 150 : (isReturn ? 380 : 1650);
+    const t0 = performance.now();
+    const imgs = [...d.images].filter(i => i.loading !== 'lazy' && !loader.contains(i));
+    const total = imgs.length + 1;
+    let loaded = 0, finished = false;
+    const tick = () => { if (bar) bar.style.transform = `scaleX(${Math.min(1, (loaded + .4) / (total + .4))})`; };
+    const one = () => { loaded++; tick(); };
+    imgs.forEach(i => { if (i.complete) loaded++; else { i.addEventListener('load', one, { once: true }); i.addEventListener('error', one, { once: true }); } });
+    if (d.fonts && d.fonts.ready) d.fonts.ready.then(one); else loaded++;
+    tick();
+    const finish = () => {
+      if (finished) return; finished = true;
+      if (bar) bar.style.transform = 'scaleX(1)';
+      const wait = Math.max(0, minTime - (performance.now() - t0)) + (isReturn ? 60 : 280);
+      setTimeout(() => {
+        loader.classList.add('is-done');
+        html.classList.remove('js-loading');
+        try { sessionStorage.setItem('atthis-v', '1'); } catch (e) { /* modo privado */ }
+        setTimeout(() => loader.classList.add('is-hidden'), 1400);
+      }, wait);
+    };
+    if (d.readyState === 'complete') finish(); else w.addEventListener('load', finish);
+    setTimeout(finish, isReturn ? 2500 : 4200); /* nunca segura o visitante por muito tempo */
+
+    /* cortina ao clicar em links internos */
+    d.addEventListener('click', e => {
+      const a = e.target.closest('a[href]');
+      if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if ((a.target && a.target !== '_self') || a.hasAttribute('download') || reduce) return;
+      const url = new URL(a.href, location.href);
+      if (url.origin !== location.origin || !/^https?:$/.test(url.protocol)) return;
+      if (url.pathname === location.pathname && url.search === location.search) return; /* âncora na mesma página */
+      e.preventDefault();
+      d.body.classList.remove('menu-open');
+      loader.classList.remove('is-done', 'is-hidden', 'is-covered');
+      void loader.offsetWidth;
+      loader.classList.add('is-leaving');
+      setTimeout(() => loader.classList.add('is-covered'), 10);
+      try { sessionStorage.setItem('atthis-v', '1'); } catch (err) { /* modo privado */ }
+      setTimeout(() => { location.href = url.href; }, 820);
+    });
+    /* voltar pelo histórico (página guardada em cache) */
+    w.addEventListener('pageshow', e => {
+      if (!e.persisted) return;
+      loader.classList.remove('is-leaving', 'is-covered');
+      loader.classList.add('is-done', 'is-hidden');
+      html.classList.remove('js-loading');
+    });
+  }
+
   /* Cabeçalho e botão flutuante */
   const header = d.querySelector('.site-header');
   const wa = d.querySelector('.wa-float');
