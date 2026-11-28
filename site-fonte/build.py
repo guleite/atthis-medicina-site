@@ -799,7 +799,7 @@ def home(r):
     </div>
     <div class="hero__media fade-up" style="--d:2">
       <img class="hero__dragonfly" src="{r}assets/img/libelula.png" alt="">
-      <div class="arch">{pic("dra_retrato", "Dra. Aclair Dallagranna, Médica de Família e Comunidade", eager=True, pos="50% 18%")}</div>
+      <div class="hero-photo">{pic("dra_retrato", "Dra. Aclair Dallagranna, Médica de Família e Comunidade", eager=True, pos="50% 18%")}</div>
       <div class="chip chip--a float"><span class="chip__ic"><img src="{r}assets/img/libelula-claro.png" alt=""></span><div><strong>{DRA}</strong><small>{TITULO}</small></div></div>
       <div class="chip chip--b float float--b"><span class="chip__dot"></span><div><strong>Médica desde 2010</strong><small>Cuidado contínuo e individualizado</small></div></div>
     </div>
@@ -930,7 +930,7 @@ def sobre(r):
       <p class="reg fade-up" style="--d:4;margin-top:22px">{REG}</p>
     </div>
     <div class="hero__media fade-up" style="--d:2;justify-self:end">
-      <div class="arch">{pic("dra_consultorio", "Dra. Aclair Dallagranna no consultório", eager=True, pos="50% 15%")}</div>
+      <div class="hero-photo">{pic("dra_consultorio", "Dra. Aclair Dallagranna no consultório", eager=True, pos="50% 15%")}</div>
     </div>
   </div>
 </section>

@@ -253,12 +253,15 @@ h1, h2, h3, h4 { margin: 0; font-weight: 300; }
 .hero__facts li { display: flex; align-items: center; gap: 10px; font-size: .9rem; color: var(--muted); }
 .hero__facts .icon { color: var(--champagne); width: 20px; height: 20px; }
 .hero__media { position: relative; justify-self: end; width: 100%; max-width: 560px; }
-.arch {
-  position: relative; overflow: hidden; border-radius: 999px 999px var(--radius-lg) var(--radius-lg);
-  aspect-ratio: 4 / 5.3; background: var(--sage-soft);
+/* Foto do hero: retângulo reto, como os blocos das peças da marca, com um filete
+   champanhe ao redor (passe-partout) que repete o traço fino da libélula. Sem recorte. */
+.hero-photo, .page-hero__img {
+  position: relative; overflow: hidden; border-radius: 0; background: var(--sage-soft);
+  outline: 1px solid rgba(165, 146, 103, .55); outline-offset: 14px;
 }
-.arch img { width: 100%; height: 100%; object-fit: cover; }
-.hero .arch img { transform: scale(1.14); animation: heroZoom 2.4s var(--ease-out) .2s forwards; }
+.hero-photo { aspect-ratio: 4 / 5; }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+.hero .hero-photo img { transform: scale(1.14); animation: heroZoom 2.4s var(--ease-out) .2s forwards; }
 @keyframes heroZoom { to { transform: scale(1); } }
 .hero__dragonfly { position: absolute; width: 300px; right: -70px; top: -60px; opacity: .2; pointer-events: none; transform: rotate(8deg); }
 
@@ -519,7 +522,7 @@ h1, h2, h3, h4 { margin: 0; font-weight: 300; }
 .page-hero { padding: clamp(170px, 23vh, 236px) 0 clamp(56px, 7vw, 100px); position: relative; overflow: hidden; }
 .page-hero__grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(32px, 6vw, 96px); align-items: end; }
 .page-hero .lead { margin-top: 28px; }
-.page-hero__img { border-radius: var(--radius-xl); overflow: hidden; aspect-ratio: 5 / 4; }
+.page-hero__img { aspect-ratio: 5 / 4; }
 .page-hero__img img { width: 100%; height: 100%; object-fit: cover; }
 .page-hero--center { text-align: center; }
 .page-hero--center .lead { margin-left: auto; margin-right: auto; }
@@ -696,6 +699,7 @@ fieldset.field { border: 0; padding: 0; margin: 0 0 20px; }
   body { font-size: 16px; }
   .hero__grid, .page-hero__grid, .about, .program, .journey, .faq-wrap, .split, .stepper, .contact-grid, .featured, .sec-head { grid-template-columns: 1fr; }
   .hero__media { justify-self: center; max-width: 480px; }
+  .hero-photo, .page-hero__img { outline-offset: 10px; }
   .hero .chip--a { left: -8px; bottom: 10%; }
   .hero .chip--b { right: -8px; }
   .sec-head { gap: 22px; }
@@ -990,7 +994,7 @@ body.booking-open { overflow: hidden; }
 @keyframes curtainIn { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
 /* animações do topo esperam a tela de loading sair */
-.js-loading .line-reveal > span, .js-loading .fade-up, .js-loading .hero .arch img { animation-play-state: paused; }
+.js-loading .line-reveal > span, .js-loading .fade-up, .js-loading .hero .hero-photo img { animation-play-state: paused; }
 
 @media (prefers-reduced-motion: reduce) {
   .loader__logo { clip-path: none; filter: none; transform: none; }
