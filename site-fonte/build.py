@@ -638,7 +638,7 @@ def page(path, title, desc, body, active="", jsonld=None):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{r}assets/css/style.css">
+<link rel="stylesheet" href="{r}assets/css/style.css?v=20261128">
 <script>(function(h){{h.classList.add('js-loading');try{{if(sessionStorage.getItem('atthis-v'))h.classList.add('is-return')}}catch(e){{}}setTimeout(function(){{h.classList.remove('js-loading')}},6000)}})(document.documentElement);</script>
 {ld}
 </head>
